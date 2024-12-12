@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Todo List</title>
+    <script>
+        function addItem(){
+            let sourceTextBox = document.getElementById("itemTextBox");
+            var itemText = sourceTextBox.value;
+
+            let newElement = document.createElement("li");
+            newElement.innerHTML = itemText;
+            
+            let targetElement = document.getElementById("NotOrdered");
+            targetElement.appendChild(newElement);
+
+            sourceTextBox.value = "";
+        }
+
+        function removeItem(){
+            let removeBox = document.getElementById("removeItemBox");
+            var removeText = removeBox.value;
+
+            var listElements = document.getElementsByTagName("li");
+            var count;
+
+            let parentElement = document.getElementById("NotOrdered");
+            
+            for(count = 0; count < listElements.length; count++){
+                var resultOfComparison = removeText.localeCompare(listElements[count].innerHTML);
+                if(resultOfComparison == 0){
+                    var elementToGo = listElements[count];
+                    parentElement.removeChild(elementToGo);
+                    
+                }
+            }
+
+            removeBox.value = "";
+        }
+
+        function completeItem(){
+            let sourceOfItem = document.getElementById("removeItemBox");
+            var boxText = sourceOfItem.value;
+
+            var elementsInList = document.getElementsByTagName("li");
+            var count;
+
+            var completedElement;
+
+            for(count = 0; count < elementsInList.length; count++){
+                var result = boxText.localeCompare(elementsInList[count].innerHTML);
+                if(result == 0){
+                    completedElement = elementsInList[count];
+                    completedElement.style.backgroundColor = "red";
+                }
+            }
+
+            sourceOfItem.value = "";
+        }
+
+    </script>
+</head>
+<body>
+    <h1>Things to do</h1>
+    <input type="text" id="itemTextBox"/>
+    <button onclick="addItem()">Add item</button>
+    <hr/>
+    <ul id="NotOrdered">
+
+    </ul>
+
+    <input type="text" id="removeItemBox"/>
+    <button onclick="removeItem()">Delete</button>
+    <button onclick="completeItem()">Complete</button>
+</body>
+</html>
